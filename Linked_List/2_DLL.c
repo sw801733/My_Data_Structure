@@ -12,12 +12,14 @@ typedef struct _DLL
 {
 	int n;
 	struct _node* head;
+	struct _node* tail;
 } DLL;
 
 void init_DLL(DLL* s)
 {
 	s->n = 0;
 	s->head = NULL;
+	s->tail = NULL;
 }
 
 void add_Node(DLL* s, int _data)
@@ -31,6 +33,7 @@ void add_Node(DLL* s, int _data)
 	if (s->head == NULL)
 	{
 		s->head = _new;
+		s->tail = _new;
 		return;
 	}
 	else
@@ -42,6 +45,7 @@ void add_Node(DLL* s, int _data)
 
 		temp->next = _new;
         _new->prev = temp;
+		s->tail = _new;
 		return;
 	}
 }
@@ -72,24 +76,28 @@ void delete_Node(DLL* s, int _data)
 	if (cur == NULL)
 	{
 		printf("Not Found!!\n");
-		return;
 	}
-
-	if (cur == s->head)
+	else if (cur == s->head)
 	{
 		printf("You delete the head!\n");
 		s->head = cur->next;
         cur->next->prev = NULL;
 		free(cur);
-		return;
+	}
+	else if (cur == s->tail)
+	{
+		printf("You delete the tail\n");
+		s->tail = cur->prev;
+		cur->prev->next = NULL;
+		free(cur);
 	}
 	else
 	{
+		printf("Delete Complete!\n");
 		cur->prev->next = cur->next;
         cur->next->prev = cur->prev;
 		free(cur);
 
-		printf("Delete Complete!\n");
 	}
 	return;
 }
@@ -110,8 +118,10 @@ void insert_Node(DLL* s, int _num, int _data)
 	_new->next = cur->next;
     _new->prev = cur;
 
-    if (cur->next != NULL)
-        cur->next->prev = _new;
+	if (cur == s->tail)
+		s->tail = _new;
+	else
+		cur->next->prev = _new;
 
 	cur->next = _new;
     
@@ -129,6 +139,17 @@ void show_DLL(DLL* s)
 		cur = cur->next;
 	}
 	printf("\n");
+}
+
+void show_reverse_DLL(DLL *s)
+{
+	Node* cur = (Node*)malloc(sizeof(Node));
+	cur = s->tail;
+	while(cur != NULL)
+	{
+		printf("%d ", cur->data);
+		cur = cur->prev;
+	}
 }
 
 int main()
@@ -170,4 +191,6 @@ int main()
 	scanf("%d", &number_insert);
 	insert_Node(s, idx, number_insert);
 	show_DLL(s);
+	show_reverse_DLL(s);
+
 }
