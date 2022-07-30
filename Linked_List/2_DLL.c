@@ -10,14 +10,12 @@ typedef struct _node
 
 typedef struct _DLL
 {
-	int n;
 	struct _node* head;
 	struct _node* tail;
 } DLL;
 
 void init_DLL(DLL* s)
 {
-	s->n = 0;
 	s->head = NULL;
 	s->tail = NULL;
 }
@@ -28,7 +26,6 @@ void add_Node(DLL* s, int _data)
 	_new->data = _data;
 	_new->next = NULL;
     _new->prev = NULL;
-	s->n++;
 
 	if (s->head == NULL)
 	{
@@ -76,8 +73,9 @@ void delete_Node(DLL* s, int _data)
 	if (cur == NULL)
 	{
 		printf("Not Found!!\n");
+		return;
 	}
-	else if (cur == s->head)
+	if (cur == s->head)
 	{
 		printf("You delete the head!\n");
 		s->head = cur->next;
