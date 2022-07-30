@@ -37,7 +37,7 @@ void add_Node(DLL* s, int _data)
 	{
 		s->tail->next = _new;
 		_new->prev = s->tail;
-		
+
 		s->tail = _new;
 		return;
 	}
@@ -71,6 +71,7 @@ void delete_Node(DLL* s, int _data)
 		printf("Not Found!!\n");
 		return;
 	}
+
 	if (cur == s->head)
 	{
 		printf("You delete the head!\n");
@@ -116,7 +117,6 @@ void insert_Node(DLL* s, int _num, int _data)
 		s->tail = _new;
 	else
 		cur->next->prev = _new;
-
 	cur->next = _new;
     
 	printf("Insert Complete!\n");
@@ -184,6 +184,7 @@ int main()
 	printf("Enter number to insert : ");
 	scanf("%d", &number_insert);
 	insert_Node(s, idx, number_insert);
+
 	show_DLL(s);
 	show_reverse_DLL(s);
 
