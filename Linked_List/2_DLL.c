@@ -35,13 +35,9 @@ void add_Node(DLL* s, int _data)
 	}
 	else
 	{
-		Node* temp = s->head;
-
-		while (temp->next != NULL)
-			temp = temp->next;
-
-		temp->next = _new;
-        _new->prev = temp;
+		s->tail->next = _new;
+		_new->prev = s->tail;
+		
 		s->tail = _new;
 		return;
 	}
