@@ -6,3 +6,8 @@ To record what I learned from school or Google ^^
 ### SLL
 
 ### DLL
+
+## Stack
+
+
+## Queue
